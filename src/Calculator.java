@@ -3,6 +3,7 @@ package Calculator;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class Calculator {
 
@@ -25,9 +26,10 @@ class kalkulator implements ActionListener {
     Font myFont = new Font("Inter", Font.BOLD, 22);
     Font myFont2 = new Font("Inter", Font.BOLD, 20);
     //new Font("Ink Free", Font.BOLD, 30);
-    double num1 = 0, num2 = 0, result = 0;
+    double num1 = 0, num2 = 0, result = 0.0;
     char operator;
     int i;
+    DecimalFormat decimalFormat = new DecimalFormat("#.###");
 
     public kalkulator() {
 
@@ -95,7 +97,7 @@ class kalkulator implements ActionListener {
             numberButtons[i] = new JButton(String.valueOf(i));
             numberButtons[i].addActionListener(this);
             numberButtons[i].setFont(myFont);
-            numberButtons[i].setForeground(new Color(146, 146, 146)); 
+            numberButtons[i].setForeground(new Color(146, 146, 146));
             numberButtons[i].setBackground(new Color(44, 44, 44));
             numberButtons[i].setBorder(BorderFactory.createLineBorder(Color.black));
             numberButtons[i].setFocusable(false);
@@ -148,8 +150,8 @@ class kalkulator implements ActionListener {
                 if (textField.getText().equals("0")) {
                     textField.setText("");
                 }
-                  textField.setText(textField.getText().concat(String.valueOf(i)));
-            }         
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+            }
         }
 
         if (e.getSource() == decButton) {
@@ -184,6 +186,13 @@ class kalkulator implements ActionListener {
 
             text.setText(text.getText().concat(String.valueOf(num1)).concat(" x "));
         }
+        if (e.getSource() == persenButton) {
+            num1 = Double.parseDouble(textField.getText());
+            operator = '%';
+            textField.setText("");
+            
+            text.setText(text.getText().concat(String.valueOf(num1)).concat(" % "));
+        }
         if (e.getSource() == equButton) {
             num2 = Double.parseDouble(textField.getText());
             switch (operator) {
@@ -195,10 +204,13 @@ class kalkulator implements ActionListener {
                     result = num1 * num2;
                 case '/' ->
                     result = num1 / num2;
+                case '%' ->
+                    result = num1 % num2;
             }
+
             textField.setText(String.valueOf(result));
             text.setText(text.getText().concat(String.valueOf(num2)).concat(" = "));
-            num1 = result;
+            num1 = result;            
         }
 
         if (e.getSource() == clrButton) {
@@ -221,11 +233,6 @@ class kalkulator implements ActionListener {
             temp *= -1;
             textField.setText(String.valueOf(temp));
         }
-
-        if (e.getSource() == persenButton) {
-
-        }
-
     }
 
 }
