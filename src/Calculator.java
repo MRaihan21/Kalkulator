@@ -145,6 +145,9 @@ class kalkulator implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        try {
+            
+        
         for (i = 0; i < 10; i++) {
             if (e.getSource() == numberButtons[i]) {
                 if (textField.getText().equals("0")) {
@@ -232,6 +235,11 @@ class kalkulator implements ActionListener {
             double temp = Double.parseDouble(textField.getText());
             temp *= -1;
             textField.setText(String.valueOf(temp));
+        }
+        
+        
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "ERROR", "Message", JOptionPane.ERROR_MESSAGE);
         }
     }
 
